@@ -14,10 +14,8 @@ export default class AuthService{
             method:'POST',
             body: JSON.stringify({email,password}),
         }).then(response=>{
-            if(response.tokenReturn){
-                this.setToken(response.tokenReturn);
-                this.setUser(response.user);
-            }
+            this.setToken(response.tokenReturn);
+            this.setUser(response.user);
             return Promise.resolve(response);
         })
     }
@@ -25,7 +23,7 @@ export default class AuthService{
     /**
      * Verificar si existe un token de usuario y sigue siendo valido
      */
-    isLoggedIn(){
+    loggedIn(){
         console.debug(this.getToken());
         return !!this.getToken();
     }
@@ -67,15 +65,8 @@ export default class AuthService{
     }
 
     getUser(){
-        if(localStorage.getItem('user')!="undefined"){
-            let objStorage = JSON.parse(localStorage.getItem('user'));
-            return objStorage;
-        }else{
-            this.logout();
-            localStorage.removeItem('user');
-            localStorage.removeItem('token_id');
-        }
-        return null;
+        let objStorage = JSON.parse(localStorage.getItem('user'));
+        return objStorage;
     }
 
     getUserAccess(){
