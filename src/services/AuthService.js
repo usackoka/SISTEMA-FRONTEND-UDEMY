@@ -65,8 +65,12 @@ export default class AuthService{
     }
 
     getUser(){
-        let objStorage = JSON.parse(localStorage.getItem('user'));
-        return objStorage;
+        try {
+            let objStorage = JSON.parse(localStorage.getItem('user'));
+            return objStorage;
+        } catch (error) {
+            return false;
+        }
     }
 
     getUserAccess(){
